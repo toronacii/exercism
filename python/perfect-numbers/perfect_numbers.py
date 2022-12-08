@@ -1,16 +1,13 @@
 def get_aliquot(number: int):
+    if number <= 0:
+        raise ValueError(
+            "Classification is only possible for positive integers.")
 
-    if number == 1:
-        return 0
-
-    aliquot = 1
-    to = number // 2 + 1
-
-    for divisor in range(2, to):
-        if number % divisor == 0:
-            aliquot += divisor
-
-    return aliquot
+    return sum(
+        divisor
+        for divisor in range(1, number // 2 + 1)
+        if number % divisor == 0
+    )
 
 
 def classify(number):
@@ -19,10 +16,6 @@ def classify(number):
     :param number: int a positive integer
     :return: str the classification of the input integer
     """
-    if number <= 0:
-        raise ValueError(
-            "Classification is only possible for positive integers.")
-
     aliquot = get_aliquot(number)
 
     if aliquot < number:
